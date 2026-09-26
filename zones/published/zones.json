@@ -1,0 +1,11 @@
+{
+  "version": 1,
+  "generated_at": 1717593600,
+  "default_ttl": 3600,
+  "owners": [
+    { "owner": "kovich", "records": 1 }
+  ],
+  "records": [
+    { "name": "kuzbas.ban",     "type": "A",     "value": "1.1.1.1", "ttl": 300, "owner": "kovich" },
+  ]
+}
