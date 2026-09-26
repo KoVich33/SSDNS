@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "User DNS Zone",
+  "type": "object",
+  "required": ["owner", "records"],
+  "additionalProperties": false,
+  "properties": {
+    "owner": {
+      "type": "string",
+      "pattern": "^[a-z0-9][a-z0-9_-]{2,63}$",
+      "description": "GitHub-username of the owner"
+    },
+    "email": { "type": "string", "format": "email" },
+    "comment": { "type": "string", "maxLength": 500 },
+    "default_ttl": { "type": "integer", "minimum": 30, "maximum": 86400 },
+    "records": {
+      "type": "array",
+      "minItems": 0,
+      "maxItems": 200,
+      "items": { "$ref": "#/$defs/record" }
+    }
+  },
+  "$defs": {
+    "record": {
+      "type": "object",
+      "required": ["name", "type", "value"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^(\\*\\.)?([a-z0-9]([a-z0-9-]{0,61}[a-z0-9])?\\.)+[a-z]{2,}$|^(\\*\\.)?[a-z0-9][a-z0-9-]{0,62}$"
+        },
+        "type": {
+          "type": "string",
+          "enum": ["A", "AAAA", "CNAME", "TXT", "MX", "NS", "SRV"]
+        },
+        "value": { "type": "string", "minLength": 1, "maxLength": 500 },
+        "ttl":   { "type": "integer", "minimum": 30, "maximum": 86400 },
+        "comment": { "type": "string", "maxLength": 200 }
+      }
+    }
+  }
+}
